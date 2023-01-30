@@ -1,0 +1,125 @@
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+## Author: Richard Sproat (rws@xoba.com)
+
+## PATHS MAY BE CHANGED TO POINT TO THE LOCATION OF THE INSTALLATION.
+import 'Grm/syllable.grm' as s;
+import 'Grm/byte.grm' as b;
+
+func D[expr] {
+  return expr : "";
+}
+
+## Phonotactics
+
+phoneme_file = 'Grm/phonemes.tsv';
+
+export PHONEMES = Optimize[StringFile[phoneme_file]];
+
+func Select[expr, list] {
+  return Optimize[Project[expr @ list, 'output']];
+}
+
+stop_small = Select["S1", PHONEMES];
+stop_large = Select["S1" | "S2", PHONEMES];
+fric_small = Select["F1", PHONEMES];
+s          = "s";
+fric_large = Select["F1" | "F2", PHONEMES];
+nas_small  = Select["N1", PHONEMES];
+nas_large  = Select["N1" | "N2", PHONEMES];
+liquid     = Select["L1", PHONEMES];
+vow_small  = Select["V1", PHONEMES];
+vow_large  = Select["V1" | "V2", PHONEMES];
+
+meta_syllable =
+   ("s"  : s)?
+   (("p" : stop_small) | ("P" : stop_large))?
+   (("f" : fric_small) | ("F" : fric_large))?
+   (("m" : nas_small) | ("M" : nas_large))?
+   ("l"  : liquid)?
+   (("v" : vow_small) | ("V" : vow_large) | "a")  # "a" is for sesqui
+   ("l"  : liquid)?
+   (("m" : nas_small) | ("M" : nas_large))?
+   (("p" : stop_small) | ("P" : stop_large))?
+   ("s"  : s)?
+;
+
+sigstar = b.kBytes*;
+
+labial = "p" | "b" | "f" | "v" | "m";
+dental = "t" | "d" | "s" | "z" | "n";
+velar  = "k" | "g" | "x" | "G" | "N";
+nasal  = "n" | "m" | "N";
+
+nasal_assimilation = Optimize[
+    CDRewrite[nasal : "m", "", labial, sigstar]
+  @ CDRewrite[nasal : "n", "", dental, sigstar]
+  @ CDRewrite[nasal : "N", "", velar, sigstar]]
+;
+
+syllable =
+  Optimize[
+   Project[
+    Optimize[
+     s.FULL_PATTERN @ meta_syllable @ nasal_assimilation],
+    'output']]
+;
+
+core_syllable =
+  Optimize[
+   Project[
+    Optimize[
+     s.CORE_PATTERN @ meta_syllable @ nasal_assimilation],
+    'output']]
+;
+
+sesqui =
+  Optimize[
+   Project[
+    Optimize[
+     s.SESQUI_PATTERN @ meta_syllable @ nasal_assimilation],
+    'output']]
+;
+
+break = ".";
+
+export SESQUISYLLABLE = Optimize[(sesqui break)? core_syllable];
+
+export MONOSYLLABLE =  syllable;
+
+export CORE_MONOSYLLABLE =  core_syllable;
+
+# If this is optimized then it tends to produce many fewer monosyllabic
+# morphemes and many more disyllabic morphemes, due to the rather imperfect way
+# in which randgen works. I recommend leaving this as is. If you change it to
+# Optimize then this will actually strengthen the results reported in the paper
+# since the disyllabic case will evolve even fewer phonetic spellings.
+export DISYLLABLE =  (syllable break)? syllable;
+export CORE_DISYLLABLE =  (core_syllable break)? core_syllable;
+
+## Morphology
+
+export SUFFIX = s.SUFFIX_PATTERN;
+
+## Some possible Ablaut grades. It doesn't really matter what these are so long
+## as there are some vowel changes and the possibility of a zero grade.
+
+ablaut_grades =
+   ("a" : "o")
+ | ("i" : "u")
+ | ("e" : "o")
+ | ("o" : "u")
+ | ("u" : "")
+;
+
+export ABLAUT = CDRewrite[ablaut_grades, "", "", sigstar];
