@@ -1,0 +1,125 @@
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+## Author: Richard Sproat (rws@xoba.com)
+
+"""Defines the set of concepts, linking them to plausible graphical forms.
+"""
+
+CONCEPTS = {
+  "@GHOST" : "👻",
+  "@LEG" : "🦵",
+  "@FOOT" : "🦶",
+  "@EAR" : "👂",
+  "@NOSE" : "👃",
+  "@BRAIN" : "🧠",
+  "@TOOTH" : "🦷",
+  "@BONE" : "🦴",
+  "@TONGUE" : "👅",
+  "@MOUTH" : "👄",
+  "@BABY" : "👶",
+  "@CHILD" : "🧒",
+  "@BOY" : "👦",
+  "@GIRL" : "👧",
+  "@PERSON" : "🧑",
+  "@MAN" : "👨",
+  "@WOMAN" : "👩",
+  "@GUARD" : "💂",
+  "@PRINCE" : "🤴",
+  "@ELF" : "🧝",
+  "@FAMILY" : "👪",
+  "@DOG" : "🐕",
+  "@WOLF" : "🐺",
+  "@FOX" : "🦊",
+  "@CAT" : "🐈",
+  "@LION" : "🦁",
+  "@HORSE" : "🐎",
+  "@UNICORN" : "🦄",
+  "@DEER" : "🦌",
+  "@OX" : "🐂",
+  "@COW" : "🐄",
+  "@PIG" : "🐖",
+  "@BOAR" : "🐗",
+  "@RAM" : "🐏",
+  "@EWE" : "🐑",
+  "@GOAT" : "🐐",
+  "@CAMEL" : "🐪",
+  "@MOUSE" : "🐁",
+  "@RAT" : "🐀",
+  "@HAMSTER" : "🐹",
+  "@RABBIT" : "🐇",
+  "@BEAVER" : "🦫",
+  "@HEDGEHOG" : "🦔",
+  "@BEAR" : "🐻",
+  "@OTTER" : "🦦",
+  "@CHICKEN" : "🐔",
+  "@BIRD" : "🐦",
+  "@EAGLE" : "🦅",
+  "@DUCK" : "🦆",
+  "@SWAN" : "🦢",
+  "@OWL" : "🦉",
+  "@FROG" : "🐸",
+  "@CROCODILE" : "🐊",
+  "@TURTLE" : "🐢",
+  "@LIZARD" : "🦎",
+  "@SNAKE" : "🐍",
+  "@SEAL" : "🦭",
+  "@FISH" : "🐟",
+  "@SHARK" : "🦈",
+  "@OCTOPUS" : "🐙",
+  "@SNAIL" : "🐌",
+  "@BUTTERFLY" : "🦋",
+  "@ANT" : "🐜",
+  "@SCORPION" : "🦂",
+  "@MOSQUITO" : "🦟",
+  "@SUNFLOWER" : "🌻",
+  "@TULIP" : "🌷",
+  "@SEEDLING" : "🌱",
+  "@MELON" : "🍈",
+  "@LEMON" : "🍋",
+  "@BANANA" : "🍌",
+  "@MANGO" : "🥭",
+  "@PEAR" : "🍐",
+  "@PEACH" : "🍑",
+  "@STRAWBERRY" : "🍓",
+  "@CARROT" : "🥕",
+  "@CUCUMBER" : "🥒",
+  "@ONION" : "🧅",
+  "@MUSHROOM" : "🍄",
+  "@CHESTNUT" : "🌰",
+  "@BREAD" : "🍞",
+  "@BACON" : "🥓",
+  "@EGG" : "🥚",
+  "@BUTTER" : "🧈",
+  "@SALT" : "🧂",
+  "@CRAB" : "🦀",
+  "@LOBSTER" : "🦞",
+  "@SHRIMP" : "🦐",
+  "@SQUID" : "🦑",
+  "@OYSTER" : "🦪",
+  "@ICE" : "🧊",
+  "@SPOON" : "🥄",
+  "@VOLCANO" : "🌋",
+  "@BRICK" : "🧱",
+  "@HOUSE" : "🏠",
+  "@HOTEL" : "🏨",
+  "@SCHOOL" : "🏫",
+  "@CASTLE" : "🏰",
+  "@FOUNTAIN" : "⛲",
+  "@SUNRISE" : "🌅",
+}
+
+NUM_CONCEPTS = len(CONCEPTS)
+
+assert NUM_CONCEPTS == 100
+
+DUMMY_SYMBOL = "😷"
