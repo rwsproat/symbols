@@ -11,7 +11,8 @@
 ## limitations under the License.
 ##
 ## Author: Richard Sproat (rws@xoba.com)
-
+"""Trainer.
+"""
 
 from absl import app
 from absl import flags
@@ -46,6 +47,7 @@ def main(argv):
     largest_input_vocab_size = phonology_symbols.size
   model = m.Seq2SeqModel(output_symbols=glyph_symbols,
                          largest_input_vocab_size=largest_input_vocab_size,
+                         data_dir=FLAGS.data_dir,
                          name=FLAGS.model_name)
   if FLAGS.test:
     assert FLAGS.batch_size == 1
